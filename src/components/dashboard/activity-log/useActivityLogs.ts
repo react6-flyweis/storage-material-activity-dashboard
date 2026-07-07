@@ -8,6 +8,7 @@ interface UseActivityLogsParams {
   debouncedSearch: string;
   page: number;
   limit: number;
+  refetchInterval?: number | false;
 }
 
 export function useActivityLogs({
@@ -15,7 +16,8 @@ export function useActivityLogs({
   statusFilter,
   debouncedSearch,
   page,
-  limit
+  limit,
+  refetchInterval
 }: UseActivityLogsParams) {
   return useQuery<ApiResponse>({
     queryKey: ["activityLogs", { roleFilter, statusFilter, debouncedSearch, page, limit }],
@@ -36,6 +38,8 @@ export function useActivityLogs({
 
       const response = await api.get("/api/admin/activity/page-visits", { params })
       return response.data.data
-    }
+    },
+    refetchInterval
   })
 }
+
