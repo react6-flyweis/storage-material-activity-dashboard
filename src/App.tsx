@@ -1,20 +1,52 @@
-import { Button } from "@/components/ui/button"
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { useAuthStore } from "@/store/useAuthStore"
+import LoginForm from "@/components/auth/LoginForm"
+import Dashboard from "@/components/dashboard/Dashboard"
+import NotFound from "@/components/common/NotFound"
+
+// PublicRoute: Redirect to dashboard if already authenticated
+function PublicRoute({ children }: { children: React.ReactNode }) {
+  const token = useAuthStore((state) => state.token)
+  return token ? <Navigate to="/dashboard" replace /> : <>{children}</>
+}
+
+// ProtectedRoute: Redirect to login if not authenticated
+function ProtectedRoute({ children }: { children: React.ReactNode }) {
+  const token = useAuthStore((state) => state.token)
+  return token ? <>{children}</> : <Navigate to="/login" replace />
+}
 
 export function App() {
   return (
-    <div className="flex min-h-svh p-6">
-      <div className="flex max-w-md min-w-0 flex-col gap-4 text-sm leading-loose">
-        <div>
-          <h1 className="font-medium">Project ready!</h1>
-          <p>You may now add components and start building.</p>
-          <p>We&apos;ve already added the button component for you.</p>
-          <Button className="mt-2">Button</Button>
-        </div>
-        <div className="font-mono text-xs text-muted-foreground">
-          (Press <kbd>d</kbd> to toggle dark mode)
-        </div>
-      </div>
-    </div>
+    <Router>
+      <Routes>
+        {/* Redirect from root to dashboard */}
+        <Route path="/" element={<Navigate to="/dashboard" replace />} />
+        
+        {/* Public auth route */}
+        <Route
+          path="/login"
+          element={
+            <PublicRoute>
+              <LoginForm />
+            </PublicRoute>
+          }
+        />
+        
+        {/* Protected admin dashboard route */}
+        <Route
+          path="/dashboard"
+          element={
+            <ProtectedRoute>
+              <Dashboard />
+            </ProtectedRoute>
+          }
+        />
+
+        {/* Wildcard 404 Route */}
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Router>
   )
 }
 
