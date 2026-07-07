@@ -1,5 +1,6 @@
-import { Activity, RotateCcw, Sun, Moon } from "lucide-react"
-import { useTheme } from "@/components/theme-provider"
+import { Activity, RotateCcw } from "lucide-react"
+// import { Sun, Moon } from "lucide-react"
+// import { useTheme } from "@/components/theme-provider"
 import { useAuthStore } from "@/store/useAuthStore"
 import { Button } from "@/components/ui/button"
 
@@ -9,7 +10,7 @@ interface HeaderProps {
 }
 
 export function Header({ onRefresh, isRefreshing }: HeaderProps) {
-  const { theme, setTheme } = useTheme()
+  // const { theme, setTheme } = useTheme()
   const user = useAuthStore((state) => state.user)
   const logout = useAuthStore((state) => state.logout)
 
@@ -70,13 +71,13 @@ export function Header({ onRefresh, isRefreshing }: HeaderProps) {
             </button>
           )}
 
-          <button
+          {/* <button
             onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
             className="p-2 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-50 rounded-lg hover:bg-neutral-100 dark:hover:bg-neutral-800 transition-colors cursor-pointer"
             title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
           >
             {theme === "dark" ? <Sun className="size-4.5" /> : <Moon className="size-4.5" />}
-          </button>
+          </button> */}
 
           <Button
             variant="outline"
