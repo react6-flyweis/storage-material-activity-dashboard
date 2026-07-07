@@ -59,7 +59,7 @@ export function ActivityTable({
               <th className="p-3 w-[100px]">Status</th>
               <th className="p-3 w-[130px]">Last Active</th>
               <th className="p-3 min-w-[200px]">Last Location</th>
-              <th className="p-3 w-[220px] text-center">Panel Breakdown</th>
+              {/* <th className="p-3 w-[220px] text-center">Panel Breakdown</th> */}
               <th className="p-3 pr-4 w-[60px] text-right">Details</th>
             </tr>
           </thead>
@@ -86,13 +86,13 @@ export function ActivityTable({
                       <div className="h-3 bg-neutral-200 dark:bg-neutral-800 rounded w-32"></div>
                     </div>
                   </td>
-                  <td className="p-3">
+                  {/* <td className="p-3">
                     <div className="flex justify-center gap-1.5">
                       {Array.from({ length: 5 }).map((_, j) => (
                         <div key={j} className="size-6 bg-neutral-200 dark:bg-neutral-800 rounded"></div>
                       ))}
                     </div>
-                  </td>
+                  </td> */}
                   <td className="p-3 pr-4 text-right">
                     <div className="size-6 bg-neutral-200 dark:bg-neutral-800 rounded-lg ml-auto"></div>
                   </td>
@@ -101,7 +101,7 @@ export function ActivityTable({
             ) : isError ? (
               // Error State
               <tr>
-                <td colSpan={7} className="p-8 text-center text-rose-500 dark:text-rose-400">
+                <td colSpan={6} className="p-8 text-center text-rose-500 dark:text-rose-400">
                   <div className="flex flex-col items-center justify-center gap-2">
                     <AlertCircle className="size-8 text-rose-500" />
                     <p className="font-semibold">{error?.message || "Failed to fetch logs"}</p>
@@ -119,7 +119,7 @@ export function ActivityTable({
             ) : items.length === 0 ? (
               // Empty State
               <tr>
-                <td colSpan={7} className="p-8 text-center text-neutral-500 dark:text-neutral-400">
+                <td colSpan={6} className="p-8 text-center text-neutral-500 dark:text-neutral-400">
                   <div className="flex flex-col items-center justify-center gap-2 py-4">
                     <Users className="size-8 text-neutral-300 dark:text-neutral-700" />
                     <p className="font-semibold">No activity logs found</p>
