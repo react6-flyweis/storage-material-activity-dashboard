@@ -11,6 +11,7 @@ export function ActivityLog() {
   const [statusFilter, setStatusFilter] = useState<string>("")
   const [page, setPage] = useState<number>(1)
   const [limit, setLimit] = useState<number>(10)
+  const [pollInterval, setPollInterval] = useState<number>(5000) // Default polling 5s
 
   // Debounce search input
   useEffect(() => {
@@ -27,7 +28,8 @@ export function ActivityLog() {
     statusFilter,
     debouncedSearch,
     page,
-    limit
+    limit,
+    refetchInterval: pollInterval > 0 ? pollInterval : false
   })
 
   // Reset all filters to defaults
@@ -38,6 +40,7 @@ export function ActivityLog() {
     setStatusFilter("")
     setPage(1)
     setLimit(10)
+    setPollInterval(5000)
   }
 
   // Handle individual filter changes that need page reset
@@ -71,6 +74,8 @@ export function ActivityLog() {
         setStatusFilter={handleStatusFilterChange}
         limit={limit}
         setLimit={handleLimitChange}
+        pollInterval={pollInterval}
+        setPollInterval={setPollInterval}
         onClearFilters={handleClearFilters}
       />
 
