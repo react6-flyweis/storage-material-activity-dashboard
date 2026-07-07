@@ -10,6 +10,8 @@ interface ActivityFilterProps {
   setStatusFilter: (val: string) => void;
   limit: number;
   setLimit: (val: number) => void;
+  pollInterval: number;
+  setPollInterval: (val: number) => void;
   onClearFilters: () => void;
 }
 
@@ -22,6 +24,8 @@ export function ActivityFilter({
   setStatusFilter,
   limit,
   setLimit,
+  pollInterval,
+  setPollInterval,
   onClearFilters
 }: ActivityFilterProps) {
   return (
@@ -31,7 +35,7 @@ export function ActivityFilter({
         <h2 className="text-sm font-semibold tracking-tight">Filter Logs</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
         {/* Search Input */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-neutral-400 pointer-events-none" />
@@ -93,6 +97,20 @@ export function ActivityFilter({
             <option value={20}>20 per page</option>
             <option value={50}>50 per page</option>
             <option value={100}>100 per page</option>
+          </select>
+        </div>
+
+        {/* Polling Interval Selector */}
+        <div>
+          <select
+            value={pollInterval}
+            onChange={(e) => setPollInterval(Number(e.target.value))}
+            className="w-full py-1.5 px-3 text-sm bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-lg focus:outline-hidden focus:border-primary focus:ring-2 focus:ring-primary/20 transition-all"
+          >
+            <option value={0}>Manual Refresh</option>
+            <option value={5000}>Auto Refresh (5s)</option>
+            <option value={10000}>Auto Refresh (10s)</option>
+            <option value={30000}>Auto Refresh (30s)</option>
           </select>
         </div>
 
